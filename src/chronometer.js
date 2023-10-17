@@ -1,30 +1,48 @@
 class Chronometer {
   constructor() {
-    // ... your code goes here
+    this.currentTime = 0;
+    this.intervalId = null;
   }
 
   start(printTimeCallback) {
-    // ... your code goes here
+    this.intervalId = setInterval(() => {
+      this.currentTime++;
+      //printTimeCallback(this.currentTime); si le paso esto me falla lo demas
+      if (printTimeCallback !== undefined) {
+        printTimeCallback(this.currentTime);
+      }
+      //para verificar si paso el callBack decimos que printTimeCallback no sea undefined
+    }, 1000);
   }
 
   getMinutes() {
-    // ... your code goes here
+    return Math.floor(this.currentTime / 60);
   }
 
   getSeconds() {
-    // ... your code goes here
+    return this.currentTime % 60;
   }
 
   computeTwoDigitNumber(value) {
-    // ... your code goes here
+    //String para convertirlo
+    //return myStr.slice(0,2); no me entero con el slice
+
+    let myStr = String(value);
+    if (myStr.length === 1) {
+      return "0" + myStr;
+    } else if (myStr.length === 0) {
+      return "00";
+    } else {
+      return myStr;
+    }
   }
 
   stop() {
-    // ... your code goes here
+    clearInterval(this.intervalId);
   }
 
   reset() {
-    // ... your code goes here
+    this.currentTime = 0;
   }
 
   split() {
